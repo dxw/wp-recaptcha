@@ -414,9 +414,9 @@ function recaptcha_wp_hash_comment($id)
 	global $recaptcha_opt;
    
 	if (function_exists('wp_hash'))
-		return wp_hash(RECAPTCHA_WP_HASH_COMMENT . $id);
+		return wp_hash('RECAPTCHA_WP_HASH_COMMENT' . $id);
 	else
-		return md5(RECAPTCHA_WP_HASH_COMMENT . $recaptcha_opt['privkey'] . $id);
+		return md5('RECAPTCHA_WP_HASH_COMMENT' . $recaptcha_opt['privkey'] . $id);
 }
 
 function recaptcha_wp_get_html ($recaptcha_error, $use_ssl=false) {
@@ -520,6 +520,8 @@ function recaptcha_wp_check_comment($comment_data) {
    // set the minimum capability needed to skip the captcha if there is one
    if ($recaptcha_opt['re_bypass'] && $recaptcha_opt['re_bypasslevel'])
       $needed_capability = $recaptcha_opt['re_bypasslevel'];
+   else
+      $needed_capability = null;
         
 	// skip the filtering if the minimum capability is met
 	if (($needed_capability && current_user_can($needed_capability)) || !$recaptcha_opt['re_comments'])
