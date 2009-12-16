@@ -723,7 +723,7 @@ function recaptcha_dropdown_capabilities($select_name, $checked_value="") {
 	<p>reCAPTCHA asks commenters to retype two words scanned from a book to prove that they are a human. This verifies that they are not a spambot while also correcting the automatic scans of old books. So you get less spam, and the world gets accurately digitized books. Everybody wins! For details, visit the <a href="http://recaptcha.net/">reCAPTCHA website</a>.</p>
    <p><strong>NOTE</strong>: If you are using some form of Cache plugin you will probably need to flush/clear your cache for changes to take effect.</p>
    
-	<form name="form1" method="post" action="<?php echo $_SERVER['REDIRECT_SCRIPT_URI'] . '?page=' . plugin_basename(__FILE__); ?>&updated=true">
+	<form name="form1" method="post" action="">
 		<div class="submit">
 			<input type="submit" name="submit" value="<?php _e('Update Options') ?> &raquo;" />
 		</div>
