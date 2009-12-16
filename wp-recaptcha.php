@@ -148,7 +148,7 @@ COMMENT_FORM;
 		
 		else {
          echo '<hr style="clear: both; margin-bottom: 1.5em; border: 0; border-top: 1px solid #999; height: 1px;" />';
-         echo $format . recaptcha_wp_get_html($_GET['rerror'], $use_ssl);
+         echo $format . recaptcha_wp_get_html(isset($_GET['rerror']) ? $_GET['rerror'] : '', $use_ssl);
       }
    }
 }
@@ -435,6 +435,8 @@ function recaptcha_comment_form() {
    // set the minimum capability needed to skip the captcha if there is one
    if ($recaptcha_opt['re_bypass'] && $recaptcha_opt['re_bypasslevel'])
       $needed_capability = $recaptcha_opt['re_bypasslevel'];
+   else
+      $needed_capability = null;
 
 	// skip the reCAPTCHA display if the minimum capability is met
 	if (($needed_capability && current_user_can($needed_capability)) || !$recaptcha_opt['re_comments'])
