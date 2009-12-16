@@ -444,7 +444,7 @@ function recaptcha_comment_form() {
    
    else {
 		// Did the user fail to match the CAPTCHA? If so, let them know
-		if ($_GET['rerror'] == 'incorrect-captcha-sol')
+		if (isset($_GET['rerror']) && $_GET['rerror'] == 'incorrect-captcha-sol')
 		echo "<p class=\"recaptcha-error\">" . $recaptcha_opt['error_incorrect'] . "</p>";
    
 		//modify the comment form for the reCAPTCHA widget
@@ -495,7 +495,7 @@ COMMENT_FORM;
 		else
          $use_ssl = false;
 		
-		echo $recaptcha_js_opts .  recaptcha_wp_get_html($_GET['rerror'], $use_ssl) . $comment_string;
+		echo $recaptcha_js_opts .  recaptcha_wp_get_html(isset($_GET['rerror']) && $_GET['rerror'], $use_ssl) . $comment_string;
    }
 }
 
