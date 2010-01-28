@@ -38,7 +38,7 @@ else
 if ($wpmu == 1)
    require_once(WP_CONTENT_DIR . '/mu-plugins/wp-recaptcha/recaptchalib.php');
 else
-   require_once(WP_CONTENT_DIR . '/plugins/recaptchalib.php');
+   require_once(WP_CONTENT_DIR . '/plugins/wp-recaptcha/recaptchalib.php');
 
 // doesn't need to be secret, just shouldn't be used by any other code.
 define ("RECAPTCHA_WP_HASH_SALT", "b7e0638d85f5d7f3694f68e944136d62");
