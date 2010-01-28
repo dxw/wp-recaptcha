@@ -918,7 +918,7 @@ add_action('admin_menu', 'recaptcha_wp_add_options_to_admin');
 // If no reCAPTCHA API keys have been entered
 if ( !($recaptcha_opt ['pubkey'] && $recaptcha_opt['privkey'] ) && !isset($_POST['submit']) ) {
    function recaptcha_warning() {
-		global $wpmu;
+		global $wpmu, $wp_version;
 		
 		$path = plugin_basename(__FILE__);
 		$top = 0;
@@ -946,7 +946,7 @@ $mailhide_enabled = ($recaptcha_opt['use_mailhide_posts'] || $recaptcha_opt['use
 // If the mcrypt PHP module isn't loaded then display an alert
 if (($mailhide_enabled && !extension_loaded('mcrypt')) && !isset($_POST['submit'])) {
    function mcrypt_warning() {
-		global $wpmu;
+		global $wpmu, $wp_version;
 		
 		$path = plugin_basename(__FILE__);
 		$top = 0;
@@ -972,7 +972,7 @@ if (($mailhide_enabled && !extension_loaded('mcrypt')) && !isset($_POST['submit'
 // If MailHide is enabled but no keys have been entered
 if ($mailhide_enabled && !($recaptcha_opt['mailhide_pub'] && $recaptcha_opt['mailhide_pub']) && !isset($_POST['submit'])) {
 	function mailhide_warning() {
-		global $wpmu;
+		global $wpmu, $wp_version;
 		
 		$path = plugin_basename(__FILE__);
 		$top = 0;
