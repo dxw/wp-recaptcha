@@ -595,7 +595,7 @@ function recaptcha_wp_saved_comment() {
 }
 
 function recaptcha_wp_blog_domain () {
-	$uri = parse_url(get_settings('siteurl'));
+	$uri = parse_url(get_option('siteurl'));
 	return $uri['host'];
 }
 
@@ -709,7 +709,7 @@ function recaptcha_dropdown_capabilities($select_name, $checked_value="") {
 	// print the <select> and loop through <options>
 	echo '<select name="' . $select_name . '" id="' . $select_name . '">' . "\n";
 	foreach ($capability_choices as $text => $capability) :
-		if ($capability == $checked_value) $checked = ' selected="selected" ';
+		$checked = ($capability == $checked_value) ? ' selected="selected" ' : '';
 		echo '\t <option value="' . $capability . '"' . $checked . ">$text</option> \n";
 		$checked = NULL;
 	endforeach;
