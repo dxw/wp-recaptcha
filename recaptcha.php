@@ -29,7 +29,7 @@ if (!class_exists('reCAPTCHA')) {
             // Actions
             
             // load the plugin's textdomain for localization
-            add_action('init', 'load_textdomain');
+            add_action('init', array(&$this, 'load_textdomain'));
 
             // styling
             add_action('wp_head', array(&$this, 'register_stylesheets')); // make unnecessary: instead, inform of classes for styling
@@ -385,16 +385,16 @@ COMMENT_FORM;
             global $user_ID;
 
             // set the minimum capability needed to skip the captcha if there is one
-            if ($this->options['bypass_for_registered_uysers'] && $this->options['minimum_bypass_level'])
+            if (isset($this->options['bypass_for_registered_uysers']) && $this->options['bypass_for_registered_uysers'] && $this->options['minimum_bypass_level'])
                 $needed_capability = $this->options['minimum_bypass_level'];
 
             // skip the reCAPTCHA display if the minimum capability is met
-            if (($needed_capability && current_user_can($needed_capability)) || !$this->options['show_in_comments'])
+            if ((isset($needed_capability) && $needed_capability && current_user_can($needed_capability)) || !$this->options['show_in_comments'])
                 return;
 
             else {
                 // Did the user fail to match the CAPTCHA? If so, let them know
-                if (($_GET['rerror'] == 'incorrect-captcha-sol'))
+                if ((isset($_GET['rerror']) && $_GET['rerror'] == 'incorrect-captcha-sol'))
                     echo '<p class="recaptcha-error">' . $this->options['incorrect_response_error'] . "</p>";
 
                 //modify the comment form for the reCAPTCHA widget
@@ -427,7 +427,7 @@ COMMENT_FORM;
                 else
                     $use_ssl = false;
 
-                echo $recaptcha_js_opts . $this->get_recaptcha_html($_GET['rerror'], $use_ssl) . $comment_string;
+                echo $recaptcha_js_opts . $this->get_recaptcha_html(isset($_GET['rerror']) ? $_GET['rerror'] : null, $use_ssl) . $comment_string;
            }
         }
         
@@ -526,7 +526,7 @@ JS;
         // todo: is this still needed?
         // this is used for the api keys url in the administration interface
         function blog_domain() {
-            $uri = parse_url(get_settings('siteurl'));
+            $uri = parse_url(get_option('siteurl'));
             return $uri['host'];
         }
         
@@ -558,8 +558,7 @@ JS;
             echo '<select name="' . $name . '" id="' . $name . '">' . "\n";
             
             foreach ($keyvalue as $key => $value) {
-                if ($value == $checked_value)
-                    $checked = ' selected="selected" ';
+                $checked = ($value == $checked_value) ? ' selected="selected" ' : '';
                 
                 echo '\t <option value="' . $value . '"' . $checked . ">$key</option> \n";
                 $checked = NULL;
