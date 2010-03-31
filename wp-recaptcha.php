@@ -576,7 +576,7 @@ function recaptcha_wp_saved_comment() {
    if (!is_single() && !is_page())
       return;
 
-   if ($_GET['rcommentid'] && $_GET['rchash'] == recaptcha_wp_hash_comment ($_GET['rcommentid'])) {
+   if (!empty($_GET['rcommentid']) && $_GET['rchash'] == recaptcha_wp_hash_comment ($_GET['rcommentid'])) {
       $comment = get_comment($_GET['rcommentid']);
 
       $com = preg_replace('/([\\/\(\)\+\;\'\"])/e','\'%\'.dechex(ord(\'$1\'))', $comment->comment_content);
